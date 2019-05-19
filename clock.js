@@ -22,52 +22,81 @@ const possVals = [1, 1, 2, 3, 5];
 // for all of the faces that are common to both the hours and minutes,
 // set their css class to both so it's colored purple.
 
-const getAllSubsets =
-    theArray => theArray.reduce(
-        (subsets, value) => subsets.concat(
-            subsets.map(set => [...set, value])
-        ),
-        [[0]]
-    );
+
+// const getAllSubsets =
+//     theArray => theArray.reduce(
+//         (subsets, value) => subsets.concat(
+//             subsets.map(set => [...set, value])
+//         ),
+//         [[0]]
+//     );
+
 
 const sum = (a, b) => {
     return a + b;
 }
 
-allSubsets = getAllSubsets(possVals);
-
-console.log(allSubsets);
-for (const subset of allSubsets) {
-    console.log(subset.reduce(sum));
+const mult5 = (x) => {
+    return x * 5;
 }
 
-// function* subsets(array, offset = 0) {
-//     while (offset < array.length) {
-//         let first = array[offset++];
-//         for (let subset of subsets(array, offset)) {
-//             subset.push(first);
-//             yield subset;
-//         }
-//     }
-//     yield [0];
+// allSubsets = getAllSubsets(possVals);
+
+
+// console.log(allSubsets);
+// for (const subset of allSubsets) {
+//     console.log(subset.reduce(sum));
 // }
 
+// i really like using the generator, but i want to refactor it to be nonrecursive
+// because i don't wan tot have that [0] in my arrays or an empty array at the end to
+// mess up the reduce method
+
+// i also want to make it so that if a in the possible values is not part of the combination,
+// it is replaced with a 0 as a place holder.
+
+function* subsets(array, offset = 0) {
+    while (offset < array.length) {
+        let first = array[offset++];
+        for (let subset of subsets(array, offset)) {
+            subset.push(first);
+            yield subset;
+        }
+    }
+    yield [0];
+}
 
 
-// const possHourSubsets = [];
-// const possMinSubsets = [];
-// const hourSums = [];
-// const minSums = [];
 
-// //   Example:
-// possHourSubsets = 
-// for (let subset of subsets(possVals)) {
-//     possHourSubsets.push(subset);
-//     hourSums.push(subset.reduce(sum));
-// }
+const possHourSubsets = [];
+const possMinSubsets = [];
+const hourSums = [];
+const minSums = [];
 
-// console.log(possSubsets);
-// console.log(possHourSubsets[hourSums.findIndex(sums => sums === hours % 12)]);
+//   Example:
+
+for (let subset of subsets(possVals)) {
+    possHourSubsets.push(subset);
+    hourSums.push(subset.reduce(sum));
+}
+
+for (let subset of subsets(possVals)) {
+    possMinSubsets.push(subset);
+    minSums.push(subset.reduce(sum));
+}
+
+// CHECKS
+// console.log(possHourSubsets);
+// console.log(hourSums);
+// console.log(hourSums.findIndex(sums => sums === hours % 12));
+
+// console.log(possMinSubsets);
+// console.log(minSums);
+// console.log(minSums.findIndex(sums => sums === Math.round((minutes / 5)) % 12));
+
+
+console.log(possHourSubsets[hourSums.findIndex(sums => sums === hours % 12)]);
+console.log(possMinSubsets[minSums.findIndex(sums => sums === Math.round((minutes / 5)) % 12)]);
 
 
 
@@ -80,8 +109,6 @@ for (const subset of allSubsets) {
 // minutes = (purple + green) * 5
 
 console.log(hours, minutes);
-// console.log((18 % 12));
-// console.log(Math.round((53 / 5) % 12));
 console.log(hours % 12);
 console.log(Math.round((minutes / 5)) % 12);
 
@@ -90,8 +117,8 @@ console.log(Math.round((minutes / 5)) % 12);
 
 // 18:53
 
-// 18%12 = 6
-// 53%5 = 3
+// 18 % 12 = 6
+// 53 % 5 = 3
 
 // 5 in purple, 1 in red, 3 in green, 2 in green
 
