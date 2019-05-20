@@ -36,9 +36,6 @@ const sum = (a, b) => {
     return a + b;
 }
 
-const mult5 = (x) => {
-    return x * 5;
-}
 
 // allSubsets = getAllSubsets(possVals);
 
@@ -54,6 +51,7 @@ const mult5 = (x) => {
 
 // i also want to make it so that if a in the possible values is not part of the combination,
 // it is replaced with a 0 as a place holder.
+
 
 function* subsets(array, offset = 0) {
     while (offset < array.length) {
@@ -95,10 +93,24 @@ for (let subset of subsets(possVals)) {
 // console.log(minSums.findIndex(sums => sums === Math.round((minutes / 5)) % 12));
 
 
-console.log(possHourSubsets[hourSums.findIndex(sums => sums === hours % 12)]);
-console.log(possMinSubsets[minSums.findIndex(sums => sums === Math.round((minutes / 5)) % 12)]);
+
+// console.log(possHourSubsets[hourSums.findIndex(sums => sums === hours % 12)]);
+// console.log(possMinSubsets[minSums.findIndex(sums => sums === Math.round((minutes / 5)) % 12)]);
+hourDisplay = possHourSubsets[hourSums.findIndex(sums => sums === hours % 12)];
+minutesDisplay = possMinSubsets[minSums.findIndex(sums => sums === Math.round((minutes / 5)) % 12)];
+
+console.log(`Hours: ${hourDisplay}`);
+console.log(`Minutes: ${minutesDisplay}`);
 
 
+
+// const intersection = hourDisplay.filter(x => minutesDisplay.includes(x));
+// const hoursDifference = hourDisplay.filter(x => !minutesDisplay.includes(x)).concat(minutesDisplay.filter(x => !hourDisplay.includes(x)));
+// const minutesDifference = minutesDisplay.filter(x => !hourDisplay.includes(x)).concat(hourDisplay.filter(x => !minutesDisplay.includes(x)));
+
+// console.log(`Intersection: ${intersection}`);
+// console.log(`Left difference: ${hoursDifference}`);
+// console.log(`Right difference: ${minutesDifference}`);
 
 
 
