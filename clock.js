@@ -1,3 +1,6 @@
+/*  Fibonacci Clock
+    Justin Hiester
+*/
 const squares = [
     square1a = document.getElementById('square-1a'),
     square1b = document.getElementById('square-1b'),
