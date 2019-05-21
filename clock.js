@@ -1,5 +1,6 @@
 /*  Fibonacci Clock
     Justin Hiester
+    2019-05-21
 */
 const squares = [
     square1a = document.getElementById('square-1a'),
