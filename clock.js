@@ -1,6 +1,5 @@
 /*  Fibonacci Clock
     Justin Hiester
-    2019-05-21
 */
 const squares = [
     square1a = document.getElementById('square-1a'),
@@ -82,37 +81,53 @@ const addHours = (squares) => {
     }
 }
 
-setInterval(() => {
+const setTime = () => {
     let time = new Date();
     let hours = time.getHours();
     let minutes = time.getMinutes();
-    
+
+    // check to see if time is HOUR:55 and add one to hour so clock doesn't
+    // "go back" in time when minutes are 00 
+    if (((minutes / 5) % 12) === 11)
+        hours++;
+
     let possHourSubsets = [];
     let possMinSubsets = [];
     let hourSums = [];
     let minSums = [];
-    
-    for (let subset of powerSet(possVals)) {
+
+    for (const subset of powerSet(possVals)) {
         possHourSubsets.push(subset);
         hourSums.push(subset.reduce(sum));
     }
-    
-    for (let subset of powerSet(possVals)) {
+
+    for (const subset of powerSet(possVals)) {
         possMinSubsets.push(subset);
         minSums.push(subset.reduce(sum));
     }
-    
-    hourDisplay = possHourSubsets[hourSums.findIndex(sums => sums === hours % 12)];
+
+    if (hours % 12 === 0)
+        hourDisplay = possHourSubsets[hourSums.findIndex(sums => sums === 12)];
+    else
+        hourDisplay = possHourSubsets[hourSums.findIndex(sums => sums === hours % 12)];
+
     minutesDisplay = possMinSubsets[minSums.findIndex(sums => sums === Math.round((minutes / 5)) % 12)];
-    
+
+    /* DEBUG INFO */
     console.log(`Hours: ${hourDisplay}`);
     console.log(`Minutes: ${minutesDisplay}`);
-    
+
     console.log(hours, minutes);
     console.log(hours % 12);
     console.log(Math.round((minutes / 5)) % 12);
-    
+
     resetDisplay(squares);
     addMinutes(squares);
-    addHours(squares);    
+    addHours(squares);
+}
+
+setTime();
+
+setInterval(() => {
+    setTime();
 }, 10000);
