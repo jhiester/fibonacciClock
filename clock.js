@@ -27,7 +27,7 @@ const powerSet = (arr) => {
     for (let i = 0; i < total; i++) {
 
         // our set that we add to the power set
-        const tempSet = [];
+        let tempSet = [];
 
         // convert the integer to binary
         let num = i.toString(2);
@@ -86,9 +86,9 @@ const setTime = () => {
     let hours = time.getHours();
     let minutes = time.getMinutes();
 
-    // check to see if time is HOUR:55 and add one to hour so clock doesn't
+    // check to see if time is HOUR:58 and add one to hour so clock doesn't
     // "go back" in time when minutes are 00 
-    if (((minutes / 5) % 12) === 11)
+    if (minutes >= 58)
         hours++;
 
     let possHourSubsets = [];
@@ -114,12 +114,12 @@ const setTime = () => {
     minutesDisplay = possMinSubsets[minSums.findIndex(sums => sums === Math.round((minutes / 5)) % 12)];
 
     /* DEBUG INFO */
-    console.log(`Hours: ${hourDisplay}`);
-    console.log(`Minutes: ${minutesDisplay}`);
+    // console.log(`Hours: ${hourDisplay}`);
+    // console.log(`Minutes: ${minutesDisplay}`);
 
-    console.log(hours, minutes);
-    console.log(hours % 12);
-    console.log(Math.round((minutes / 5)) % 12);
+    // console.log(hours, minutes);
+    // console.log(hours % 12);
+    // console.log(Math.round((minutes / 5)) % 12);
 
     resetDisplay(squares);
     addMinutes(squares);
