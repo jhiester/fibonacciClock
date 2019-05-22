@@ -18,25 +18,25 @@ const sum = (a, b) => {
 const powerSet = (arr) => {
 
     // the final power set
-    var powers = [];
+    const powers = [];
 
     // the total number of sets that the power set will contain
-    var total = Math.pow(2, arr.length);
+    const total = Math.pow(2, arr.length);
 
     // loop through each value from 0 to 2^n
-    for (var i = 0; i < total; i++) {
+    for (let i = 0; i < total; i++) {
 
         // our set that we add to the power set
-        var tempSet = [];
+        const tempSet = [];
 
         // convert the integer to binary
-        var num = i.toString(2);
+        let num = i.toString(2);
 
         // pad the binary number so 1 becomes 001 for example
         while (num.length < arr.length) { num = '0' + num; }
 
         // build the set that matches the 1's in the binary number
-        for (var b = 0; b < num.length; b++) {
+        for (let b = 0; b < num.length; b++) {
             if (num[b] === '1') { tempSet.push(arr[b]); }
             else { tempSet.push(0); }
 
