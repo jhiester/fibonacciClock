@@ -82,9 +82,9 @@ const addHours = (squares) => {
 }
 
 const setTime = () => {
-    let time = new Date();
+    const time = new Date();
     let hours = time.getHours();
-    let minutes = time.getMinutes();
+    const minutes = time.getMinutes();
 
     // check to see if time is HOUR:58 and add one to hour so clock doesn't
     // "go back" in time when minutes are 00 
