@@ -1,6 +1,8 @@
 /*  Fibonacci Clock
     Justin Hiester
 */
+
+
 const squares = [
     square1a = document.getElementById('square-1a'),
     square1b = document.getElementById('square-1b'),
@@ -9,40 +11,37 @@ const squares = [
     square5 = document.getElementById('square-5'),
 ]
 
+
 const possVals = [1, 1, 2, 3, 5];
+
 
 const sum = (a, b) => {
     return a + b;
 }
 
+
+/* in this instance we'll have at most 32 items in the powerset. we don't need anything fancy. */
 const powerSet = (arr) => {
 
-    // the final power set
     const powers = [];
 
-    // the total number of sets that the power set will contain
     const total = Math.pow(2, arr.length);
 
-    // loop through each value from 0 to 2^n
     for (let i = 0; i < total; i++) {
-
-        // our set that we add to the power set
         let tempSet = [];
 
-        // convert the integer to binary
         let num = i.toString(2);
 
-        // pad the binary number so 1 becomes 001 for example
-        while (num.length < arr.length) { num = '0' + num; }
+        while (num.length < arr.length)
+            num = '0' + num;
 
-        // build the set that matches the 1's in the binary number
-        for (let b = 0; b < num.length; b++) {
-            if (num[b] === '1') { tempSet.push(arr[b]); }
-            else { tempSet.push(0); }
-
+        for (let j = 0; j < num.length; j++) {
+            if (num[j] === '1')
+                 tempSet.push(arr[j]);
+            else
+                tempSet.push(0);
         }
 
-        // add this set to the final power set
         powers.push(tempSet);
 
     }
@@ -50,6 +49,7 @@ const powerSet = (arr) => {
     return powers;
 
 }
+
 
 const resetDisplay = (squares) => {
     for (let square of squares) {
@@ -68,6 +68,7 @@ const addMinutes = (squares) => {
     }
 }
 
+
 const addHours = (squares) => {
     for (let index = 0; index < squares.length; index++) {
         if (hourDisplay[index] != 0) {
@@ -80,6 +81,7 @@ const addHours = (squares) => {
         }
     }
 }
+
 
 const setTime = () => {
     const time = new Date();
@@ -126,7 +128,9 @@ const setTime = () => {
     addHours(squares);
 }
 
+
 setTime();
+
 
 setInterval(() => {
     setTime();
