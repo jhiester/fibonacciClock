@@ -34,21 +34,21 @@ html {
     padding: 20px;
 }
 
-  .neither {
-      background-color: grey;
-  }
+.neither {
+    background-color: grey;
+}
 
-  .hour {
-    background-color: tomato;
-  }
+.hour {
+background-color: tomato;
+}
 
-  .minute {
-    background-color:lightgreen;
-  }
+.minute {
+background-color:lightgreen;
+}
 
-  .both {
-    background-color: slateblue;
-  }
+.both {
+background-color: slateblue;
+}
 
 #square-1a {
     grid-column: 3 / 4;
@@ -89,8 +89,7 @@ html {
         display: grid;    
         grid-template-columns: repeat(5, 50px);
         grid-template-rows: repeat(8, 50px);
-        grid-gap: 5px;
-    
+        grid-gap: 5px;    
     }
 
     #square-1a {
@@ -117,4 +116,4 @@ html {
         grid-column: 1 / 6;
         grid-row: 4 / 9;    
     }
-  }
+}
