@@ -59,7 +59,7 @@ const resetDisplay = (squares) => {
 }
 
 
-const addMinutes = (squares) => {
+const addMinutes = (minutesDisplay, squares) => {
     for (let index = 0; index < squares.length; index++) {
         if (minutesDisplay[index] != 0) {
             squares[index].classList.remove('neither');
@@ -69,7 +69,7 @@ const addMinutes = (squares) => {
 }
 
 
-const addHours = (squares) => {
+const addHours = (hourDisplay, squares) => {
     for (let index = 0; index < squares.length; index++) {
         if (hourDisplay[index] != 0) {
             squares[index].classList.remove('neither');
@@ -84,9 +84,11 @@ const addHours = (squares) => {
 
 
 const setTime = () => {
-    const time = new Date();
-    let hours = time.getHours();
-    const minutes = time.getMinutes();
+    // const time = new Date();
+    // let hours = time.getHours();
+    // const minutes = time.getMinutes();
+    let hours = 22;
+    const minutes = 30;
 
     // check to see if time is HOUR:58 and add one to hour so clock doesn't
     // "go back" in time when minutes are 00 
@@ -97,6 +99,8 @@ const setTime = () => {
     let possMinSubsets = [];
     let hourSums = [];
     let minSums = [];
+    let hourDisplay = [];
+    let minutesDisplay = [];
 
     for (const subset of powerSet(possVals)) {
         possHourSubsets.push(subset);
@@ -108,24 +112,44 @@ const setTime = () => {
         minSums.push(subset.reduce(sum));
     }
 
-    if (hours % 12 === 0)
+    if (hours % 12 === 0) 
         hourDisplay = possHourSubsets[hourSums.findIndex(sums => sums === 12)];
-    else
+    else 
         hourDisplay = possHourSubsets[hourSums.findIndex(sums => sums === hours % 12)];
-
+        
     minutesDisplay = possMinSubsets[minSums.findIndex(sums => sums === Math.round((minutes / 5)) % 12)];
 
-    /* DEBUG INFO */
-    // console.log(`Hours: ${hourDisplay}`);
-    // console.log(`Minutes: ${minutesDisplay}`);
+    // find all of the indices whos values sum up to the hour % 12
+    let hourIndices = hourSums.map((e,i) => e === hours % 12 ? i : undefined).filter(x => x);
 
+    // of those values, find the combination with the least zeroes
+    for (let i of hourIndices) {
+        let numZeroes = possHourSubsets[i].filter(x => x===0).length;
+        console.log(`index: ${i}, numZeroes: ${numZeroes}, subset: ${possHourSubsets[i]}`);
+    }
+    let numZeroes = 666;
+    let newIndex = 42;
+    hourIndices.forEach((element, i) => {
+        console.log(element, i)
+        newNumZeroes = possHourSubsets[element].filter(x => x===0).length;
+        newIndex = newNumZeroes < numZeroes ? element : newIndex;
+    })
+
+       // return the combination with the least zeroes for display
+    console.log(possHourSubsets[newIndex]);
+
+ 
+    // do the same thing for the minutes
+
+    /* DEBUG INFO */
+    console.log(`hourIndices: ${hourIndices}`)
     // console.log(hours, minutes);
     // console.log(hours % 12);
     // console.log(Math.round((minutes / 5)) % 12);
 
     resetDisplay(squares);
-    addMinutes(squares);
-    addHours(squares);
+    addMinutes(minutesDisplay, squares);
+    addHours(hourDisplay, squares);
 }
 
 

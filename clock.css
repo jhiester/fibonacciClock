@@ -35,19 +35,22 @@ html {
 }
 
 .neither {
-    background-color: grey;
+    /* background-color: grey; */
+    background-color: white;
 }
 
 .hour {
-background-color: tomato;
+/* background-color: tomato; */
+background-color: #D13EC8;;
 }
 
 .minute {
-background-color:lightgreen;
+/* background-color:lightgreen; */
+background-color: #45E8E0;
 }
 
 .both {
-background-color: slateblue;
+background-color: #5046CA;
 }
 
 #square-1a {
